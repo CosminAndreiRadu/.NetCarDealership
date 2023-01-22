@@ -1,11 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ProiectDaw.Entities;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using ProiectDaw.Models.Entities;
 
 namespace ProiectDaw.Data
 {
-    public class DBcon : DbContext
+    public class DBcon : IdentityDbContext<User, Role, int, IdentityUserClaim<int>, 
+        UserRole, IdentityUserLogin<int>, IdentityRoleClaim<int>, IdentityUserToken<int>>
     {
-        public DBcon(DbContextOptions<DBcon> options) :base(options) { }
+        public DBcon(DbContextOptions options) :base(options) { }
 
         public DbSet<Manufacturer> Manufacturers { get; set; }
 
@@ -40,6 +43,15 @@ namespace ProiectDaw.Data
                 .WithMany(q => q.VehicleTesters)
                 .HasForeignKey(vt => vt.QATesterId);
 
+
+            modelBuilder.Entity<UserRole>(ur =>
+            {
+                ur.HasKey(ur => new {ur.UserId, ur.RoleId});
+
+                ur.HasOne(ur => ur.Role).WithMany(r => r.UserRoles).HasForeignKey(ur => ur.RoleId);
+                ur.HasOne(ur => ur.User).WithMany(u => u.UserRoles).HasForeignKey(ur => ur.UserId);
+
+            });
 
             base.OnModelCreating(modelBuilder);
         }

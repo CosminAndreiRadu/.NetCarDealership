@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
-using ProiectDaw.Entities;
-using ProiectDaw.Entities.DTOs;
+using ProiectDaw.Models.DTOs;
+using ProiectDaw.Models.Entities;
 using ProiectDaw.Repositories.ManufacturerRepository;
 using System.Collections.Generic;
 using System.Threading.Tasks;
