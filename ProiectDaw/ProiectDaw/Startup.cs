@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -9,7 +10,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using ProiectDaw.Data;
+using ProiectDaw.Models.Constants;
+using ProiectDaw.Repositories;
 using ProiectDaw.Repositories.ManufacturerRepository;
+using ProiectDaw.Services.UserServices;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,8 +40,28 @@ namespace ProiectDaw
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ProiectDaw", Version = "v1" });
             });
 
+
             services.AddDbContext<DBcon>(options => options.UseSqlServer("Data Source=DESKTOP-GPUB6TL\\SERVERDAW;Initial Catalog=DAWDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
-            
+
+            services.AddScoped<IUserService, UserService>();
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy(UserRoleType.Admin, policy => policy.RequireRole(UserRoleType.Admin));
+                options.AddPolicy(UserRoleType.User, policy => policy.RequireRole(UserRoleType.User));
+
+            });
+
+            services.AddAuthentication(auth =>
+            {
+                auth.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                auth.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                auth.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer();
+
+            services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+
             services.AddTransient<IManufacturerRepository, ManufacturerRepository>();
 
             services.AddControllersWithViews()
