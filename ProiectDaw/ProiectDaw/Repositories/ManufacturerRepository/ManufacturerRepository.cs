@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProiectDaw.Data;
-using ProiectDaw.Entities;
+using ProiectDaw.Models.Entities;
 using ProiectDaw.Repositories.GenericRepositories;
 using System.Collections.Generic;
 using System.Linq;

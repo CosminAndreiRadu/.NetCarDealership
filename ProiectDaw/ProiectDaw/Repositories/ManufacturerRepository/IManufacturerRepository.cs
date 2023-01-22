@@ -1,4 +1,4 @@
-﻿using ProiectDaw.Entities;
+﻿using ProiectDaw.Models.Entities;
 using ProiectDaw.Repositories.GenericRepositories;
 using System.Collections.Generic;
 using System.Threading.Tasks;
