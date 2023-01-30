@@ -10,5 +10,6 @@ namespace ProiectDaw.Repositories
     {
         Task<List<User>> GetAllUsers();
         Task<User> GetUserByEmail(string email);
+        Task<User> GetUserByIdWithRoles(int id);
     }
 }

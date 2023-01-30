@@ -14,11 +14,11 @@ namespace ProiectDaw.Models.DTOs
 
         public ManufacturerDTO(Manufacturer manufacturer)
         {
-            Id = manufacturer.Id;
-            Name = manufacturer.Name;
-            Country = manufacturer.Country;
-            Location = manufacturer.Location;
-            Vehicles = new List<Vehicle>();
+            this.Id = manufacturer.Id;
+            this.Name = manufacturer.Name;
+            this.Country = manufacturer.Country;
+            this.Location = manufacturer.Location;
+            this.Vehicles = new List<Vehicle>();
         }
 
     }

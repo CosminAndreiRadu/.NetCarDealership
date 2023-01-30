@@ -13,12 +13,20 @@ namespace ProiectDaw.Repositories
         {
         }
 
-        async Task<List<User>> IUserRepository.GetAllUsers()
+        public async Task<User> GetUserByIdWithRoles(int id)
+        {
+            return await _context.Users
+                .Include(u => u.UserRoles)
+                    .ThenInclude(ur => ur.Role)
+                    .FirstOrDefaultAsync(u => u.Id.Equals(id));
+        }
+
+        public async Task<List<User>> GetAllUsers()
         {
             return await _context.Users.ToListAsync();
         }
 
-        async Task<User> IUserRepository.GetUserByEmail(string email)
+        public async Task<User> GetUserByEmail(string email)
         {
             return await _context.Users.FirstOrDefaultAsync(u => u.Email.Equals(email));
         }

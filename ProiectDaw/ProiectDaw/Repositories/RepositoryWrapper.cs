@@ -11,9 +11,12 @@ namespace ProiectDaw.Repositories
 
         private IUserRepository _user;
 
+        private ISessionTokenRepository _sessionToken;
+
         public RepositoryWrapper(DBcon context)
         {
             _context = context;
+             
         }
 
         public IUserRepository User
@@ -28,9 +31,22 @@ namespace ProiectDaw.Repositories
             }
         }
 
+        public ISessionTokenRepository SessionToken
+        {
+            get
+            {
+                if (_sessionToken == null)
+                {
+                    _sessionToken = new SessionTokenRepository(_context);
+                }
+                return _sessionToken;
+            }
+        }
+
         public async Task SaveAsync()
         {
             await _context.SaveChangesAsync();
         }
     }
 }
+
