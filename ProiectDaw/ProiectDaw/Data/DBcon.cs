@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ProiectDaw.Models.Entities;
@@ -10,6 +10,10 @@ namespace ProiectDaw.Data
     {
         public DBcon(DbContextOptions options) :base(options) { }
 
+        public DbSet<SessionToken> SessionTokens { get; set; }
+
+        public DbSet<Location> Locations { get; set; }
+
         public DbSet<Manufacturer> Manufacturers { get; set; }
 
         public DbSet<Vehicle> Vehicles { get; set; }
@@ -18,6 +22,8 @@ namespace ProiectDaw.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Manufacturer>()
                 .HasOne(m => m.Location)
@@ -53,7 +59,7 @@ namespace ProiectDaw.Data
 
             });
 
-            base.OnModelCreating(modelBuilder);
+            
         }
     }
 }

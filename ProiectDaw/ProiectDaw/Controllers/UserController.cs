@@ -17,7 +17,7 @@ namespace ProiectDaw.Controllers
         }
 
         [HttpGet]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllUsers()
         {
             var users = await _repository.User.GetAllUsers();

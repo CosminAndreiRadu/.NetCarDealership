@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi.Validations;
 using Microsoft.VisualBasic;
 using ProiectDaw.Models.DTOs;
 using ProiectDaw.Models.Entities;
@@ -19,7 +21,26 @@ namespace ProiectDaw.Controllers
         {
             _repo = repo;
         }
+        
+        [HttpGet("veh")]
+        public async Task<IActionResult> GetAllManufacturersWithVehicles()
+        {
+            Dictionary<string,string> dict = new Dictionary<string,string>();
+            dict = await _repo.GetAllManufacturersWithVehicles();
 
+            return Ok(dict);
+        }
+        
+        [HttpGet("stock")]
+        public async Task<IActionResult> GetAllManufacturersWithNumberOfVehicles()
+        {
+            Dictionary<int, int> dict = new Dictionary<int, int>();
+            dict = await _repo.GetAllManufacturersWithNOVehicles();
+
+            return Ok(dict);
+        }
+        
+        
         [HttpGet]
 
         public async Task<IActionResult> GetAllManufacturers()
@@ -35,6 +56,7 @@ namespace ProiectDaw.Controllers
 
             return Ok(manufacturersToReturn);
         }
+        
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetManufacturerById(int id)
@@ -75,6 +97,29 @@ namespace ProiectDaw.Controllers
             await _repo.SaveAsync();
         
             return Ok(new ManufacturerDTO(newManufacturer));
+        }
+
+        [HttpPatch("{id}")]
+        public async Task<IActionResult> Patch(int id, JsonPatchDocument<Manufacturer> manufacturer)
+        {
+            if (manufacturer != null)
+            {
+                var manufacturerForUpdate = await _repo.GetByIdAsync(id);
+                manufacturer.ApplyTo(manufacturerForUpdate, ModelState);
+
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest();
+                }
+
+                await _repo.SaveAsync();
+                return Ok(new ManufacturerDTO(manufacturerForUpdate));
+            }
+            else
+            {
+                return BadRequest();
+            }
+
         }
 
     }
