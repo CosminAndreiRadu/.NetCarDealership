@@ -6,3 +6,5 @@
  - Folosirea metodelor din Linq: GroupBy, Where, etc; Folosirea Join si Include; 
  - Autentificare + Roluri; Autorizare pe endpointuri în funcție de Roluri(ex: Only the admin can use GetAllUsers method); 2 Roluri: Admin, User;
  - Repository pattern + Service;
+
+- Unit Of Work
