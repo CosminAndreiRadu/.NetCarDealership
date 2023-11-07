@@ -1,10 +1,10 @@
-# .NetWebApp
+# .Net Backend for Web App
 
 
- - 3 Controllere cu fiecare metoda Crud, REST cu date din baza de date(Manufacturer, Vehicle, Location);
- - Cel puțin 1 relație între tabele din fiecare fel(One to One : Manufacturer-Location, Many to Many : VehicleTesters-Vehicles, One to Many : Manufacturer-Vehicles); 
- - Folosirea metodelor din Linq: GroupBy, Where, etc; Folosirea Join si Include; 
- - Autentificare + Roluri; Autorizare pe endpointuri în funcție de Roluri(ex: Only the admin can use GetAllUsers method); 2 Roluri: Admin, User;
- - Repository pattern + Service;
+ - 3 Controllers containing each Crud, REST method using DataBase data (Manufacturer, Vehicle, Location);
+ - At least 1 realationship of each type (One to One : Manufacturer-Location, Many to Many : VehicleTesters-Vehicles, One to Many : Manufacturer-Vehicles);
+ - Linq Methods: GroupBy, Where, ect; Join and Include;
+ - Authentication + Roles; Endpoints authorisation depending on the roles (ex: Only the admin can use GetAllUsers method); 2 Roles: Admin, User;
+ - Repository pattern + Services;
+ - Unit of Work;
 
-- Unit Of Work
